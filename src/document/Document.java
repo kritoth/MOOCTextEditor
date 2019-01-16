@@ -67,8 +67,38 @@ public abstract class Document {
 		// TODO: Implement this method so that you can call it from the 
 	    // getNumSyllables method in BasicDocument (module 2) and 
 	    // EfficientDocument (module 3).
-	    return 0;
+		int syllables = 0;
+		word = word.toLowerCase();
+		char[] w = word.toCharArray();
+		
+		// count all vowels
+		for(char c : w) {
+			if(isVowel(c)) syllables++;
+		}
+		// deduct the contiguous ones, to count them as one
+		for(int i=0;i<w.length-1;i++) {
+			if(isVowel(w[i]) && isVowel(w[i+1])) {
+				syllables--;
+			}
+		}
+		// separate check for the last vowel, if it is a lonely 'e' ie. preceeded by a consonant 
+		// and there were at least 1 syllables before deduct it
+		if((word.charAt(word.length()-1) == 'e' && !isVowel(word.charAt(word.length()-2)) && syllables > 1)) {
+			syllables--;
+		}
+		
+		// This is for testing only:
+		//System.out.println("\n" + word + ": " + syllables);
+	    return syllables;
 	}
+	
+	// helper method to check if a char is a vowel
+	private boolean isVowel(char ch){
+        //aeiouy
+        String vowels = "aeiouyAEIOUY";
+        if(vowels.indexOf(ch) != -1) return true;
+        else return false;
+    }
 	
 	/** A method for testing
 	 * 
@@ -132,7 +162,7 @@ public abstract class Document {
 	{
 	    // TODO: You will play with this method in week 1, and 
 		// then implement it in week 2
-	    return 0.0;
+	    return 206.835 - 1.015 * ((double)getNumWords() / (double)getNumSentences()) - 84.6 * ((double)getNumSyllables() / (double)getNumWords());
 	}
 	
 	
