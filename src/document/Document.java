@@ -100,6 +100,15 @@ public abstract class Document {
         else return false;
     }
 	
+	public char getLastChar() {
+		if(text.length() > 0) {
+			return text.charAt(text.length() - 1);
+		}
+		else {
+			return '?';
+		}
+	}
+	
 	/** A method for testing
 	 * 
 	 * @param doc The Document object to test

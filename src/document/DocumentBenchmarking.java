@@ -17,7 +17,7 @@ public class DocumentBenchmarking {
 
 	    // Run each test more than once to get bigger numbers and less noise.
 	    // You can try playing around with this number.
-	    int trials = 100;
+	    int trials = 1000;
 
 	    // The text to test on
 	    String textfile = "data/warAndPeace.txt";
@@ -57,8 +57,29 @@ public class DocumentBenchmarking {
 			 *     b. Calls fleshScore on this document
 			 * 6. Print out the time it took to complete the loop in step 5 
 			 *      (on the same line as the first print statement) followed by a newline (\n) 
-			 */  
-			 
+			 */ 
+			
+			String numOfCharsInText = getStringFromFile(textfile, numToCheck);
+			
+			System.out.print(numToCheck + "\t");
+			long startBDTime = System.nanoTime();
+			for(int i = 0; i< trials; i++) {
+				BasicDocument bd = new BasicDocument(textfile);
+				bd.getFleschScore();
+			}
+			long endBDTime = System.nanoTime();
+			double estBDTime = (endBDTime - startBDTime) / 10000000.0;
+			System.out.print(estBDTime + "\t");
+			
+			long startTimeED = System.nanoTime();
+			for(int i = 0; i< trials; i++) {
+				EfficientDocument ed = new EfficientDocument(textfile);
+				ed.getFleschScore();
+			}
+			long endTimeED = System.nanoTime();
+			double estTimeED = (endTimeED - startTimeED) / 10000000.0;
+			System.out.println(estTimeED);
+			
 		}
 	
 	}
