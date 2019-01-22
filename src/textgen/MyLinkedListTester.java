@@ -124,7 +124,20 @@ public class MyLinkedListTester {
 	public void testAddEnd()
 	{
         // TODO: implement this test
-		
+		// Test a not empty list
+		assertEquals("AddEnd: check 'C' returns true in not-empty list", true, shortList.add("C"));
+		assertEquals("AddEnd: check 'C' has correct index", "C", shortList.get(2));
+		// test an empty list
+		MyLinkedList<Integer> anEmptyList = new MyLinkedList<Integer>();
+		assertEquals("AddEnd: check first element into emptyList", true, anEmptyList.add(Integer.valueOf(1)));
+		assertEquals("AddEnd: check first element has correct index", Integer.valueOf(1), anEmptyList.get(0));
+		// test for null element
+		try {
+			shortList.add(null);
+			fail("AddEnd: null element shuold not be added");
+		}
+		catch(NullPointerException e) {
+		}
 	}
 
 	
@@ -133,6 +146,10 @@ public class MyLinkedListTester {
 	public void testSize()
 	{
 		// TODO: implement this test
+		// test not-empty list
+		assertEquals("Size: check the size of not-empty list", 2, shortList.size());
+		// test empty list
+		assertEquals("Size: check the size of not-empty list", 0, emptyList.size());
 	}
 
 	
