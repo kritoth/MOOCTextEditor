@@ -68,7 +68,6 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			
 			return (E) getNode(index).data;
 		}
-		
 	}
 
 	/**
@@ -76,7 +75,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @param The index where the element should be added
 	 * @param element The element to add
 	 */
-	public void add(int index, E element ) 
+	public void add(int index, E element ) throws IndexOutOfBoundsException
 	{
 		// TODO: Implement this method
 		if(index < 0) {
@@ -97,8 +96,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 			newNode.prev = prevNode;
 			currNode.prev = newNode;
 			prevNode.next = newNode;
-			size++;
-			
+			size++;	
 		}
 		else {
 			throw new NullPointerException();
