@@ -208,7 +208,35 @@ public class MyLinkedListTester {
 	public void testSet()
 	{
 	    // TODO: implement this test
-	    
+		// test set E at i=0
+		assertEquals("Check returned value after set at i:0", Integer.valueOf(0), longerList.set(0, -1));
+		assertEquals("Check new value after set at i:0", Integer.valueOf(-1), longerList.get(0));
+		// test set E at last
+		assertEquals("Check returned value after set at i:last", Integer.valueOf(9), longerList.set(longerList.size()-1, -1));
+		assertEquals("Check new value after set at i:last", Integer.valueOf(-1), longerList.get(longerList.size()-1));
+		// test set E at middle
+		assertEquals("Check returned value after set at i:3", Integer.valueOf(3), longerList.set(3, -1));
+		assertEquals("Check new value after set at i:3", Integer.valueOf(-1), longerList.get(3));
+	    // test for invalid index
+		try {
+			longerList.set(25, 25);
+			fail("Set: to index > size element should not be added");
+		}
+			catch(IndexOutOfBoundsException e) {
+		}
+		try {
+			longerList.set(-1, 25);
+			fail("Set: to negative index element should not be added");
+		}
+			catch(IndexOutOfBoundsException e) {
+		}
+		// test for null element
+		try {
+			longerList.set(1, null);
+			fail("Set: null element shuold not be added");
+		}
+			catch(NullPointerException e) {
+		}
 	}
 	
 	

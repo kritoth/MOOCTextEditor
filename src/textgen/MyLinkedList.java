@@ -149,10 +149,24 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @return The element that was replaced
 	 * @throws IndexOutOfBoundsException if the index is out of bounds.
 	 */
-	public E set(int index, E element) 
+	public E set(int index, E element) throws IndexOutOfBoundsException
 	{
 		// TODO: Implement this method
-		return null;
+		if(index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		else if(index >= size) {
+			throw new IndexOutOfBoundsException();
+		}
+		else if(element != null) {
+			LLNode<E> currNode = getNode(index);
+			E oldData = currNode.data;
+			currNode.data = element;
+			return oldData;
+		}
+		else {
+			throw new NullPointerException();
+		}
 	}   
 	
 	private LLNode<E> getNode(int index){
