@@ -119,6 +119,19 @@ public class MyLinkedListTester {
 		assertEquals("Remove: check index 1 ('B') is correct ", "B", erased);
 		assertEquals("Remove: check shortList element 0 is correct ", "A", shortList.get(0));
 		assertEquals("Remove: check shortList size is correct ", 1, shortList.size());
+		try {
+			shortList.remove(-1);
+			fail("Remove: Check lower bound");
+		}
+		catch (IndexOutOfBoundsException e) {
+		
+		}
+		try {
+			shortList.remove(25);
+			fail("Remove: Check upper bound");
+		}
+		catch (IndexOutOfBoundsException e) {
+		}
 	}
 	
 	/** Test adding an element into the end of the list, specifically
