@@ -162,7 +162,41 @@ public class MyLinkedListTester {
 	public void testAddAtIndex()
 	{
         // TODO: implement this test
-		
+		// Test a not-empty list at the end
+		shortList.add(2, "D");
+		assertEquals("AddAtIndex: check 'D' at the end in not-empty list", "D", shortList.get(2));
+		// test a not-empty list middle
+		shortList.add(2, "C");
+		assertEquals("AddAtIndex: check 'C' has correct index in middle not-empty list", "C", shortList.get(2));
+		assertEquals("AddAtIndex: check element moved toward end index inserting middle not-empty list", "D", shortList.get(3));
+		// test a not-empty list at its start
+		shortList.add(0, "0");
+		assertEquals("AddAtIndex: check '0' has correct index at start not-empty list", "0", shortList.get(0));
+		assertEquals("AddAtIndex: check element moved toward end index inserting middle not-empty list", "D", shortList.get(4));
+		// test an empty list
+		MyLinkedList<Integer> anEmptyList = new MyLinkedList<Integer>();
+		anEmptyList.add(0, Integer.valueOf(1));
+		assertEquals("AddAtIndex: check first element has correct index", Integer.valueOf(1), anEmptyList.get(0));
+		// test for invalid index
+		try {
+			shortList.add(-1, "-1");
+			fail("AddAtIndex: to index -1 element should not be added");
+		}
+			catch(IndexOutOfBoundsException e) {
+		}
+		try {
+			shortList.add(25, "25");
+			fail("AddAtIndex: to index > size element should not be added");
+		}
+			catch(IndexOutOfBoundsException e) {
+		}
+		// test for null element
+		try {
+			shortList.add(null);
+			fail("AddAtIndex: null element shuold not be added");
+		}
+			catch(NullPointerException e) {
+		}
 	}
 	
 	/** Test setting an element in the list */

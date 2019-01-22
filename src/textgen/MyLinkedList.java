@@ -80,7 +80,30 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	public void add(int index, E element ) 
 	{
 		// TODO: Implement this method
-		
+		if(index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		else if(index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		else if(index == size) {
+			add(element);
+		}
+		else if(element != null) {
+			LLNode<E> newNode = new LLNode<E>(element);
+			LLNode<E> currNode = getNode(index);
+			LLNode<E> prevNode = currNode.prev;
+			
+			newNode.next = currNode;
+			newNode.prev = prevNode;
+			currNode.prev = newNode;
+			prevNode.next = newNode;
+			size++;
+			
+		}
+		else {
+			throw new NullPointerException();
+		}
 	}
 
 
