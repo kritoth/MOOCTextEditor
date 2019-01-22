@@ -39,8 +39,7 @@ public class MyLinkedList<E> extends AbstractList<E> {
 				size++;
 				return true;
 			}
-			else {
-				
+			else {				
 				newNode.prev = head;
 				newNode.next = tail;
 				head.next = newNode;
@@ -120,10 +119,27 @@ public class MyLinkedList<E> extends AbstractList<E> {
 	 * @throws IndexOutOfBoundsException If index is outside the bounds of the list
 	 * 
 	 */
-	public E remove(int index) 
+	public E remove(int index) throws IndexOutOfBoundsException 
 	{
 		// TODO: Implement this method
-		return null;
+		if(index < 0) {
+			throw new IndexOutOfBoundsException();
+		}
+		else if(index > size) {
+			throw new IndexOutOfBoundsException();
+		}
+		else {
+			LLNode<E> removed = getNode(index);
+			LLNode<E> prevNode = removed.prev;
+			LLNode<E> nextNode = removed.next;
+			
+			prevNode.next = removed.next;
+			nextNode.prev = removed.prev;
+			E data = removed.data;
+			removed = null;
+			size--;
+			return data;
+		}
 	}
 
 	/**

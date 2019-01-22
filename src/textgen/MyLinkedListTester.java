@@ -115,6 +115,10 @@ public class MyLinkedListTester {
 		assertEquals("Remove: check size is correct ", 2, list1.size());
 		
 		// TODO: Add more tests here
+		String erased = shortList.remove(1); // B
+		assertEquals("Remove: check index 1 ('B') is correct ", "B", erased);
+		assertEquals("Remove: check shortList element 0 is correct ", "A", shortList.get(0));
+		assertEquals("Remove: check shortList size is correct ", 1, shortList.size());
 	}
 	
 	/** Test adding an element into the end of the list, specifically
