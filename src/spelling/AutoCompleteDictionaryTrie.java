@@ -1,7 +1,9 @@
 package spelling;
 
 import java.util.List;
+import java.util.Queue;
 import java.util.Set;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -40,7 +42,22 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public boolean addWord(String word)
 	{
 	    //TODO: Implement this method.
-	    return false;
+		String s = word.toLowerCase();
+		if(isWord(s)) return false;
+		TrieNode curr = root;
+		for(char c : s.toCharArray()) {
+			if(curr.getChild(c) == null) {
+				curr.insert(c);
+				curr = curr.getChild(c);
+			}
+			else {
+				curr = curr.getChild(c);
+				continue;
+			}
+		}
+		curr.setEndsWord(true);
+		size++;
+		return true;
 	}
 	
 	/** 
@@ -50,7 +67,16 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public int size()
 	{
 	    //TODO: Implement this method
-	    return 0;
+		/*
+		int counter = 0;
+		TrieNode curr = root.getChild(c);
+ 		TrieNode next = null;
+ 		for (Character c : curr.getValidNextCharacters()) {
+ 			next = curr.getChild(c);
+ 			printNode(next);
+ 		}
+		*/
+	    return size;
 	}
 	
 	
@@ -60,7 +86,21 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
 	public boolean isWord(String s) 
 	{
 	    // TODO: Implement this method
-		return false;
+		boolean b = false;
+		s = s.toLowerCase();
+		TrieNode curr = root;
+		for(char c : s.toCharArray()) {
+			if(curr.getChild(c) == null) {
+				return false;
+			}
+			else {
+				curr = curr.getChild(c);
+			}
+		}
+		if(curr.endsWord()) {
+			b = true;
+		}
+		return b;
 	}
 
 	/** 
@@ -100,9 +140,23 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
     	 //       If it is a word, add it to the completions list
     	 //       Add all of its child nodes to the back of the queue
     	 // Return the list of completions
-    	 
-         return null;
+    	 List<String> comps = new ArrayList<String>();
+    	 //if(prefix.isEmpty()) return comps;
+    	 prefix = prefix.toLowerCase();
+    	 TrieNode curr = root;
+    	 for(char c : prefix.toCharArray()) {
+    		 if(curr.getChild(c) == null) {
+    			 return comps;
+	 		 }
+	 		 else {
+	 			 curr = curr.getChild(c);
+	 		 }
+ 		 }
+    	 comps = levelOrderTraversal(curr, comps);
+    	 if (numCompletions < comps.size()) comps = comps.subList(0, numCompletions);
+         return comps;
      }
+     
 
  	// For debugging
  	public void printTree()
@@ -125,6 +179,33 @@ public class AutoCompleteDictionaryTrie implements  Dictionary, AutoComplete {
  		}
  	}
  	
+ 	private List<String> levelOrderTraversal(TrieNode startNode, List<String> list) {
+		Queue<TrieNode> queue = new LinkedList<TrieNode>();
+		queue.add(startNode);
+		while(!queue.isEmpty()) {
+			TrieNode curr = queue.poll();
+			if(isWord(curr.getText())){
+				list.add(curr.getText());
+			}
+			//System.out.println(curr.getText()); // for testing
+			
+			for (Character c : curr.getValidNextCharacters()) {
+				if(curr.getChild(c) != null)
+					queue.add(curr.getChild(c));
+			}
+		}
+		return list;
+ 	}
+ 	/*
+ 	private void preOrderTraversal (TrieNode curr, StringBuilder sb) {
+   	 if (curr == null) return;
 
-	
+   	 TrieNode next = null;
+   	 for (Character c : curr.getValidNextCharacters()) {
+   		next = curr.getChild(c);
+   		sb.append(c);
+   		preOrderTraversal(next, sb);
+   	 }
+    }
+	*/
 }
